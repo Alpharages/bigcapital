@@ -1,6 +1,6 @@
 {
   "name": "bigcapital-monorepo",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",
@@ -11,6 +11,8 @@
     "dev:server": "lerna run dev --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\"",
     "build:server": "lerna run build --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\"",
     "serve:server": "lerna run serve --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\"",
+    "lint:server": "lerna run lint --scope \"@bigcapital/server\"",
+    "lint-fix:server": "lerna run lint:fix --scope \"@bigcapital/server\"",
     "test:e2e": "playwright test",
     "prepare": "husky install"
   },
