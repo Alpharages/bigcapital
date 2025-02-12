@@ -16,6 +16,7 @@ function initSystemKnex() {
       user: config.system.db_user,
       password: config.system.db_password,
       database: config.system.db_name,
+      port: config.system.port,
       charset: 'utf8',
     },
     migrations: {
@@ -37,6 +38,7 @@ function initTenantKnex(organizationId: string = '') {
       user: config.tenant.db_user,
       password: config.tenant.db_password,
       database: `${config.tenant.db_name_prefix}${organizationId}`,
+      port: config.tenant.port,
       charset: config.tenant.charset,
     },
     migrations: {
