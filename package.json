@@ -4,6 +4,8 @@
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",
+    "clean:build": "rm -rf packages/server/build && rm -rf packages/webapp/build",
+    "clean": "rm -rf node_modules && rm -rf packages/server/node_modules && rm -rf packages/webapp/node_modules",
     "dev:webapp": "lerna run dev --scope \"@bigcapital/webapp\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\"",
     "build:webapp": "lerna run build --scope \"@bigcapital/webapp\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\"",
     "dev:server": "lerna run dev --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\"",
