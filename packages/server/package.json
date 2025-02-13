@@ -11,8 +11,10 @@
     "build:app": "cross-env NODE_ENV=production webpack --config scripts/webpack.config.js",
     "build:commands": "cross-env NODE_ENV=production webpack --config scripts/webpack.cli.js",
     "build": "npm-run-all build:*",
-    "serve": "node ./build/index.js",
-    "lint:fix": "eslint --fix ./**/*.ts"
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ./**/*.ts",
+    "serve": "node ./build/index.js"
   },
   "author": "Ahmed Bouhuolia, <a.bouhuolia@gmail.com>",
   "license": "ISC",
@@ -20,9 +22,9 @@
     "bigcapital": "./bin/bigcapital.js"
   },
   "dependencies": {
-    "@bigcapital/utils": "*",
-    "@bigcapital/email-components": "*",
-    "@bigcapital/pdf-templates": "*",
+    "@bigcapital/utils": "link:../../shared/bigcapital-utils",
+    "@bigcapital/email-components": "link:../../shared/email-components",
+    "@bigcapital/pdf-templates": "link:../../shared/pdf-templates",
     "@aws-sdk/client-s3": "^3.576.0",
     "@aws-sdk/s3-request-presigner": "^3.583.0",
     "@casl/ability": "^5.4.3",
@@ -90,7 +92,7 @@
     "multer-s3": "^3.0.1",
     "mustache": "^3.0.3",
     "mysql": "^2.17.1",
-    "mysql2": "^1.6.5",
+    "mysql2": "^3.12.0",
     "newrelic": "^11.15.0",
     "node-cache": "^4.2.1",
     "nodemailer": "^6.3.0",
@@ -143,6 +145,7 @@
     "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
     "faker": "^4.1.0",
     "getopts": "^2.2.5",
     "gulp-postcss": "^9.0.0",
