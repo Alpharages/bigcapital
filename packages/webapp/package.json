@@ -3,9 +3,9 @@
   "version": "0.10.2",
   "private": true,
   "dependencies": {
-    "@bigcapital/utils": "link:../../shared/bigcapital-utils",
-    "@bigcapital/email-components": "link:../../shared/email-components",
-    "@bigcapital/pdf-templates": "link:../../shared/pdf-templates",
+    "@bigcapital/utils": "https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop",
+    "@bigcapital/email-components": "https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop",
+    "@bigcapital/pdf-templates": "https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop",
     "@blueprintjs-formik/core": "^0.3.7",
     "@blueprintjs-formik/datetime": "^0.3.7",
     "@blueprintjs-formik/select": "^0.3.5",
