@@ -1,27 +1,35 @@
+# Stage 1: Build stage
 FROM node:18.16.0-alpine as build
 
-USER root
-
+# Set working directory
 WORKDIR /app
 
-# Copy application dependency manifests to the container image.
+# Install required packages in a single layer to reduce image size
+RUN apk add --no-cache python3 build-base
+
+# Copy package.json and pnpm-lock.yaml first to leverage Docker layer caching
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies efficiently
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
+
+# Copy the rest of the application files
 COPY . .
 
-# Install application dependencies
-RUN apk update
-RUN apk add python3 build-base chromium
+# Build the webapp
+RUN pnpm run build
 
-# Set PYHTON env
-ENV PYTHON=/usr/bin/python3
+# Stage 2: Production stage
+FROM nginx:alpine
 
-# Install pnpm packages dependencies
-RUN npm install -g pnpm
-RUN pnpm install
+# Copy Nginx configuration
+COPY ./nginx/sites/default.conf /etc/nginx/conf.d/default.conf
 
-# Build webapp package
-RUN pnpm run build:webapp
+# Copy built assets from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
 
-FROM nginx
+# Expose port 80
+EXPOSE 80
 
-COPY ./packages/webapp/nginx/sites/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/packages/webapp/build /usr/share/nginx/html
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

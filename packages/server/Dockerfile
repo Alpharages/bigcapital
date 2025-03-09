@@ -1,7 +1,7 @@
+# Use multi-stage build to reduce final image size
 FROM node:18.16.0-alpine as build
 
-USER root
-
+# Define build arguments
 ARG MAIL_HOST= \
   MAIL_USERNAME= \
   MAIL_PASSWORD= \
@@ -40,6 +40,7 @@ ARG MAIL_HOST= \
   SIGNUP_ALLOWED_DOMAINS= \
   SIGNUP_ALLOWED_EMAILS=
 
+# Set environment variables
 ENV MAIL_HOST=$MAIL_HOST \
   MAIL_USERNAME=$MAIL_USERNAME \
   MAIL_PASSWORD=$MAIL_PASSWORD \
@@ -81,30 +82,42 @@ ENV MAIL_HOST=$MAIL_HOST \
 # New Relic config file.
 ENV NEW_RELIC_NO_CONFIG_FILE=true
 
-# Create app directory.
+# Create app directory and set permissions
+WORKDIR /app
+RUN chown node:node /app
+
+# Install pnpm and required dependencies
+RUN npm install -g pnpm && \
+    apk add --no-cache python3 build-base chromium
+
+# Copy package manager manifests first (leveraging Docker cache)
+COPY package.json pnpm-lock.yaml ./
+
+# Install production dependencies only
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy the rest of the application source code
+COPY . ./
+
+# Build the server
+RUN pnpm run build --skip-nx-cache
+
+# Use a lightweight Node.js runtime for production
+FROM node:18.16.0-alpine AS production
+
+# Set working directory
 WORKDIR /app
 
-RUN chown node:node /
+# Copy only necessary files from the build stage
+COPY --from=build /app /app
 
-# Install pnpm 
-RUN npm install -g pnpm
+# Set environment variables
+ENV NODE_ENV=production \
+    PYTHON=/usr/bin/python3 \
+    NEW_RELIC_NO_CONFIG_FILE=true
 
-# Copy application dependency manifests to the container image.
-COPY --chown=node:node ./ ./
+# Expose the necessary port (adjust as needed)
+EXPOSE 3000
 
-# Install application dependencies
-RUN apk update
-RUN apk add python3 build-base chromium
-
-# Set PYHTON env
-ENV PYTHON=/usr/bin/python3
-
-# Install packages dependencies for production.
-RUN pnpm install
-
-COPY --chown=node:node ./packages/server ./packages/server
-
-# # Creates a "dist" folder with the production build
-RUN pnpm run build:server --skip-nx-cache
-
-CMD [ "node", "./packages/server/build/index.js" ]
+# Command to start the server
+CMD ["node", "./packages/server/build/index.js"]
