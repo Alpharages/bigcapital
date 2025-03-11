@@ -14,5 +14,8 @@
   ],
   "installCommand": "pnpm install",
   "buildCommand": "pnpm build",
-  "startCommand": "pnpm serve"
+  "startCommand": "pnpm serve",
+  "engines": {
+    "node": "18.x"
+  }
 }

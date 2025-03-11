@@ -8,5 +8,8 @@
     }
   ],
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm build"
+  "buildCommand": "pnpm build",
+  "engines": {
+    "node": "18.x"
+  }
 }
