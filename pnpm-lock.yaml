@@ -46,14 +46,14 @@ importers:
         specifier: ^3.583.0
         version: 3.744.0
       '@bigcapital/email-components':
-        specifier: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop
-        version: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop(@types/node@20.5.1)(jsdom@16.7.0)(less@4.2.2)(sass@1.84.0)(terser@5.38.1)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)(vite@5.4.14(@types/node@20.5.1)(less@4.2.2)(sass@1.84.0)(terser@5.38.1))
+        specifier: file:../../shared/email-components
+        version: file:shared/email-components(@types/node@20.5.1)(jsdom@16.7.0)(less@4.2.2)(sass@1.84.0)(terser@5.38.1)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)(vite@5.4.14(@types/node@20.5.1)(less@4.2.2)(sass@1.84.0)(terser@5.38.1))
       '@bigcapital/pdf-templates':
-        specifier: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop
-        version: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop(@emotion/styled@11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1))(esbuild@0.24.2)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)
+        specifier: file:../../shared/pdf-templates
+        version: file:shared/pdf-templates(@emotion/styled@11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1))(esbuild@0.24.2)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)
       '@bigcapital/utils':
-        specifier: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop
-        version: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop
+        specifier: file:../../shared/bigcapital-utils
+        version: link:../../shared/bigcapital-utils
       '@casl/ability':
         specifier: ^5.4.3
         version: 5.4.4
@@ -2024,20 +2024,8 @@ packages:
   '@bigcapital/email-components@file:shared/email-components':
     resolution: {directory: shared/email-components, type: directory}
 
-  '@bigcapital/email-components@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop':
-    resolution: {tarball: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop}
-    version: 0.0.0
-
   '@bigcapital/pdf-templates@file:shared/pdf-templates':
     resolution: {directory: shared/pdf-templates, type: directory}
-
-  '@bigcapital/pdf-templates@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop':
-    resolution: {tarball: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop}
-    version: 0.0.0
-
-  '@bigcapital/utils@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop':
-    resolution: {tarball: https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop}
-    version: 1.0.0
 
   '@blueprintjs-formik/core@0.3.7':
     resolution: {integrity: sha512-VVotc5x3Yjtm6gHHcYyHN705a9OtyfEtuJn+sdbrnB/LI6TbeibAg43EdXyKRfJThVPdQF9W5bP4WNigOuZxgA==}
@@ -18818,7 +18806,7 @@ snapshots:
       - typescript
       - vite
 
-  '@bigcapital/email-components@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/email-components?develop(@types/node@20.5.1)(jsdom@16.7.0)(less@4.2.2)(sass@1.84.0)(terser@5.38.1)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)(vite@5.4.14(@types/node@20.5.1)(less@4.2.2)(sass@1.84.0)(terser@5.38.1))':
+  '@bigcapital/email-components@file:shared/email-components(@types/node@20.5.1)(jsdom@16.7.0)(less@4.2.2)(sass@1.84.0)(terser@5.38.1)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)(vite@5.4.14(@types/node@20.5.1)(less@4.2.2)(sass@1.84.0)(terser@5.38.1))':
     dependencies:
       '@react-email/components': 0.0.25(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/lodash.isempty': 4.4.9
@@ -18884,7 +18872,7 @@ snapshots:
       - webpack-bundle-analyzer
       - webpack-dev-server
 
-  '@bigcapital/pdf-templates@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/pdf-templates?develop(@emotion/styled@11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1))(esbuild@0.24.2)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)':
+  '@bigcapital/pdf-templates@file:shared/pdf-templates(@emotion/styled@11.14.0(@emotion/react@11.14.0(react@18.3.1))(react@18.3.1))(esbuild@0.24.2)(ts-node@9.1.1(typescript@3.9.10))(typescript@3.9.10)':
     dependencies:
       '@emotion/cache': 11.14.0
       '@emotion/css': 11.13.5
@@ -18918,8 +18906,6 @@ snapshots:
       - uglify-js
       - webpack-bundle-analyzer
       - webpack-dev-server
-
-  '@bigcapital/utils@https://gitpkg.vercel.app/Alpharages/bigcapital/shared/bigcapital-utils?develop': {}
 
   '@blueprintjs-formik/core@0.3.7(@babel/core@7.26.8)(@blueprintjs/core@4.20.2(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@blueprintjs/select@4.9.24(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(formik@2.4.6(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)':
     dependencies:
