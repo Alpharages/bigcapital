@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "packages/webapp/package.json",
+      "use": "@vercel/node",
+      "config": {
+        "distDir": "packages/webapp/build"
+      }
+    },
+    {
+      "src": "packages/server/package.json",
+      "use": "@vercel/node",
+      "config": {
+        "distDir": "packages/server/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "packages/webapp/build"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "packages/server/build"
+    }
+  ],
+  "build": {
+    "env": {
+      "NODE_VERSION": "18.x"
+    }
+  },
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "packages/webapp/build"
+}
