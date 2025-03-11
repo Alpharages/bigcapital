@@ -29,7 +29,6 @@
   "engines": {
     "node": "16.x || 17.x || 18.x"
   },
-  "packageManager": "pnpm@10.6.2",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
