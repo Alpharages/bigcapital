@@ -3,9 +3,15 @@
   "installCommand": "pnpm install",
   "buildCommand": "pnpm run build",
   "outputDirectory": "packages/webapp/build",
+  "builds": [
+    {
+      "src": "packages/server/build/server.js",
+      "use": "@vercel/node"
+    }
+  ],
   "rewrites": [{
     "source": "/api/(.*)",
-    "destination": "packages/server/build"
+    "destination": "packages/server/build/server.js"
   },
     {
       "source": "/(.*)",
