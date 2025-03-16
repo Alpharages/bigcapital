@@ -4,7 +4,7 @@
   "buildCommand": "pnpm run build",
   "builds": [
     {
-      "src": "packages/server/build/index.js",
+      "src": "packages/server/build/server.js",
       "use": "@vercel/node"
     }
   ],
