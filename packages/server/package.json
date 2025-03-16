@@ -14,8 +14,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ./**/*.ts",
-    "serve": "node ./build/index.js",
-    "vercel-start": "node build/index.js"
+    "vercel-start": "node src/index.ts"
   },
   "author": "Ahmed Bouhuolia, <a.bouhuolia@gmail.com>",
   "license": "ISC",
