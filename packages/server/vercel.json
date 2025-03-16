@@ -2,17 +2,11 @@
   "version": 2,
   "installCommand": "pnpm install",
   "buildCommand": "pnpm run build",
-  "outputDirectory": "packages/server/build",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ],
+  "startCommand": "pnpm run vercel-start",
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "packages/server/build/server.js"
+      "dest": "/"
     }
   ],
   "build": {
