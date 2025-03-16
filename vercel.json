@@ -5,7 +5,7 @@
   "outputDirectory": "packages/webapp/build",
   "builds": [
     {
-      "src": "packages/server/build/server.js",
+      "src": "packages/server/build",
       "use": "@vercel/node"
     }
   ],
