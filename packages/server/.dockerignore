@@ -1,0 +1,8 @@
+packages/webapp
+node_modules
+dist
+build
+*.log
+.env
+.vscode
+.DS_Store

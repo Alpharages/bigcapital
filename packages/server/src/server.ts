@@ -13,4 +13,6 @@ async function startServer() {
   await loadersFactory({ expressApp: app });
 }
 
-startServer();
+startServer().then(() => {
+  console.log('Starting server...');
+});

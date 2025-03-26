@@ -9,9 +9,9 @@
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
-    "@bigcapital/utils": "file:../../shared/bigcapital-utils",
-    "@bigcapital/pdf-templates": "file:../../shared/pdf-templates",
-    "@bigcapital/email-components": "file:../../shared/email-components",
+    "@bigcapital/utils": "workspace:*",
+    "@bigcapital/pdf-templates": "workspace:*",
+    "@bigcapital/email-components": "workspace:*",
     "@blueprintjs-formik/core": "^0.3.7",
     "@blueprintjs-formik/datetime": "^0.3.7",
     "@blueprintjs-formik/select": "^0.3.5",

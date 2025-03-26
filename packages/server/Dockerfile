@@ -1,5 +1,5 @@
 # Use multi-stage build to reduce final image size
-FROM node:18.16.0-alpine as build
+FROM node:18.16.0-alpine As build
 
 # Define build arguments
 ARG MAIL_HOST= \
@@ -10,6 +10,7 @@ ARG MAIL_HOST= \
   MAIL_FROM_NAME= \
   MAIL_FROM_ADDRESS= \
   # Database
+  RUN_MIGRATIONS= \
   DB_HOST= \
   DB_USER= \
   DB_PASSWORD= \
@@ -38,7 +39,8 @@ ARG MAIL_HOST= \
   # Sign-up restriction
   SIGNUP_DISABLED= \
   SIGNUP_ALLOWED_DOMAINS= \
-  SIGNUP_ALLOWED_EMAILS=
+  SIGNUP_ALLOWED_EMAILS= \
+  NEW_RELIC_NO_CONFIG_FILE=
 
 # Set environment variables
 ENV MAIL_HOST=$MAIL_HOST \
@@ -49,6 +51,7 @@ ENV MAIL_HOST=$MAIL_HOST \
   MAIL_FROM_NAME=$MAIL_FROM_NAME \
   MAIL_FROM_ADDRESS=$MAIL_FROM_ADDRESS \
   # Database
+  RUN_MIGRATIONS=$RUN_MIGRATIONS \
   DB_HOST=$DB_HOST \
   DB_USER=$DB_USER \
   DB_PASSWORD=$DB_PASSWORD \
@@ -77,30 +80,27 @@ ENV MAIL_HOST=$MAIL_HOST \
   # Sign-up restriction
   SIGNUP_DISABLED=$SIGNUP_DISABLED \
   SIGNUP_ALLOWED_DOMAINS=$SIGNUP_ALLOWED_DOMAINS \
-  SIGNUP_ALLOWED_EMAILS=$SIGNUP_ALLOWED_EMAILS
-
-# New Relic config file.
-ENV NEW_RELIC_NO_CONFIG_FILE=true
+  SIGNUP_ALLOWED_EMAILS=$SIGNUP_ALLOWED_EMAILS \
+  NEW_RELIC_NO_CONFIG_FILE=$NEW_RELIC_NO_CONFIG_FILE
 
 # Create app directory and set permissions
 WORKDIR /app
 RUN chown node:node /app
 
 # Install pnpm and required dependencies
-RUN npm install -g pnpm && \
-    apk add --no-cache python3 build-base chromium
+RUN npm install -g pnpm
 
-# Copy package manager manifests first (leveraging Docker cache)
-COPY package.json pnpm-lock.yaml ./
+# Copy entire monorepo dependencies context required for the build
+COPY . .
+
+# remove unnecessary package
+RUN rm -rf /app/packages/webapp
 
 # Install production dependencies only
-RUN pnpm install --frozen-lockfile --prod
-
-# Copy the rest of the application source code
-COPY . ./
+RUN pnpm install --frozen-lockfile
 
 # Build the server
-RUN pnpm run build --skip-nx-cache
+RUN pnpm run build:server --skip-nx-cache
 
 # Use a lightweight Node.js runtime for production
 FROM node:18.16.0-alpine AS production
@@ -109,15 +109,18 @@ FROM node:18.16.0-alpine AS production
 WORKDIR /app
 
 # Copy only necessary files from the build stage
-COPY --from=build /app /app
+COPY --from=build /app .
+
+# Install pnpm again in production
+RUN npm install -g pnpm
 
 # Set environment variables
-ENV NODE_ENV=production \
-    PYTHON=/usr/bin/python3 \
-    NEW_RELIC_NO_CONFIG_FILE=true
+ENV NODE_ENV=production
 
 # Expose the necessary port (adjust as needed)
 EXPOSE 3000
 
+RUN chmod +x /app/bin/entrypoint.sh
+
 # Command to start the server
-CMD ["node", "./packages/server/build/index.js"]
+ENTRYPOINT ["/app/bin/entrypoint.sh"]
