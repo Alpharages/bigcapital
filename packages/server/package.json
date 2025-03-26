@@ -14,7 +14,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ./**/*.ts",
-    "vercel-start": "node src/index.ts"
+    "serve": "node ./build/index.js"
   },
   "author": "Ahmed Bouhuolia, <a.bouhuolia@gmail.com>",
   "license": "ISC",
@@ -22,9 +22,9 @@
     "bigcapital": "./bin/bigcapital.js"
   },
   "dependencies": {
-    "@bigcapital/utils": "file:../../shared/bigcapital-utils",
-    "@bigcapital/pdf-templates": "file:../../shared/pdf-templates",
-    "@bigcapital/email-components": "file:../../shared/email-components",
+    "@bigcapital/utils": "workspace:*",
+    "@bigcapital/pdf-templates": "workspace:*",
+    "@bigcapital/email-components": "workspace:*",
     "@aws-sdk/client-s3": "^3.576.0",
     "@aws-sdk/s3-request-presigner": "^3.583.0",
     "@casl/ability": "^5.4.3",
