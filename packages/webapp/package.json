@@ -3,15 +3,16 @@
   "version": "0.10.2",
   "private": true,
   "scripts": {
-    "dev": "cross-env PORT=4000 craco start",
-    "build": "craco build",
+    "dev": "vite",
+    "build": "vite build",
     "test": "node scripts/test.js",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@bigcapital/utils": "workspace:*",
-    "@bigcapital/pdf-templates": "workspace:*",
     "@bigcapital/email-components": "workspace:*",
+    "@bigcapital/pdf-templates": "workspace:*",
+    "@bigcapital/utils": "workspace:*",
     "@blueprintjs-formik/core": "^0.3.7",
     "@blueprintjs-formik/datetime": "^0.3.7",
     "@blueprintjs-formik/select": "^0.3.5",
@@ -24,7 +25,6 @@
     "@blueprintjs/timezone": "^4.5.43",
     "@casl/ability": "^5.4.3",
     "@casl/react": "^2.3.0",
-    "@craco/craco": "^5.9.0",
     "@emotion/css": "^11.13.4",
     "@emotion/react": "^11.13.3",
     "@reduxjs/toolkit": "^1.2.5",
@@ -46,8 +46,8 @@
     "@types/node": "^14.14.9",
     "@types/ramda": "^0.28.14",
     "@types/react": "18.3.4",
-    "@types/react-dom": "18.3.0",
     "@types/react-body-classname": "^1.1.7",
+    "@types/react-dom": "18.3.0",
     "@types/react-helmet": "^6.1.11",
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.3",
@@ -84,7 +84,6 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.33",
-    "path-browserify": "^1.0.1",
     "plaid": "^9.3.0",
     "plaid-threads": "^11.4.3",
     "polished": "^4.3.1",
@@ -161,5 +160,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.9"
   }
 }
