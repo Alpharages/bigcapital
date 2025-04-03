@@ -1,0 +1,6 @@
+# This is a base version of the Bigcapital.
+
+# Networks
+networks:
+  bigcapital_network:
+    driver: bridge
