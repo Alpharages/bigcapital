@@ -1,11 +1,13 @@
 {
   "name": "bigcapital-monorepo",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "lerna run dev",
     "build": "lerna run build",
+    "clean:build": "pnpm -r exec rimraf dist build",
+    "clean": "pnpm -r exec rimraf node_modules",
     "dev:webapp": "lerna run dev --scope \"@bigcapital/webapp\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\"",
-    "build:webapp": "lerna run build --scope \"@bigcapital/webapp\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\"",
+    "build:webapp": "lerna run build --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\" --scope \"@bigcapital/webapp\"",
     "dev:server": "lerna run dev --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\"",
     "build:server": "lerna run build --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\" --scope \"@bigcapital/pdf-templates\" --scope \"@bigcapital/email-components\"",
     "serve:server": "lerna run serve --scope \"@bigcapital/server\" --scope \"@bigcapital/utils\"",
@@ -13,6 +15,8 @@
     "test:watch": "lerna run test:watch",
     "test:e2e": "lerna run test:e2e",
     "start:debug": "lerna run start:debug",
+    "lint:server": "lerna run lint --scope \"@bigcapital/server\"",
+    "lint-fix:server": "lerna run lint:fix --scope \"@bigcapital/server\"",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -23,7 +27,9 @@
     "@playwright/test": "^1.32.3",
     "husky": "^8.0.3",
     "lerna": "^8.1.2",
-    "pnpm": "^9.0.5"
+    "pnpm": "^9.0.5",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2"
   },
   "engines": {
     "node": "16.x || 17.x || 18.x"

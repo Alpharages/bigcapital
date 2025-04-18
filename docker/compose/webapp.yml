@@ -1,0 +1,10 @@
+services:
+  webapp:
+    container_name: bigcapital-webapp
+    image: bigcapital/webapp:latest
+    build:
+      context: ./
+      dockerfile: packages/webapp/Dockerfile
+    restart: on-failure
+    networks:
+      - bigcapital_network

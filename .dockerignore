@@ -1,0 +1,13 @@
+# Ignore dependencies and build output
+**/node_modules
+**/dist
+**/build
+
+# Ignore version control and misc
+.git
+.gitignore
+Dockerfile*
+.dockerignore
+npm-debug.log
+yarn-error.log
+.env

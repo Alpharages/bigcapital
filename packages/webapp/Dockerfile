@@ -1,27 +1,35 @@
-FROM node:18.16.0-alpine as build
+# Stage 1: Build stage
+FROM node:18.16.0-alpine As build
 
-USER root
-
+# Set working directory
 WORKDIR /app
 
-# Copy application dependency manifests to the container image.
+# Install required packages in a single layer to reduce image size
+RUN apk add --no-cache python3 build-base
+
+# Copy entire monorepo dependencies context required for the build
 COPY . .
 
-# Install application dependencies
-RUN apk update
-RUN apk add python3 build-base chromium
+# remove unnecessary package
+RUN rm -rf /app/packages/server
 
-# Set PYHTON env
-ENV PYTHON=/usr/bin/python3
+# Install dependencies efficiently
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
-# Install pnpm packages dependencies
-RUN npm install -g pnpm
-RUN pnpm install
-
-# Build webapp package
+# Build the webapp
 RUN pnpm run build:webapp
 
-FROM nginx
+# Stage 2: Production stage
+FROM nginx:alpine
 
-COPY ./packages/webapp/nginx/sites/default.conf /etc/nginx/conf.d/default.conf
+# Copy Nginx configuration
+COPY /packages/webapp/nginx/sites/default.conf /etc/nginx/conf.d/default.conf
+
+# Copy built assets from the build stage
 COPY --from=build /app/packages/webapp/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
